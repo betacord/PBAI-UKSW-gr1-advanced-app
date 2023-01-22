@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from db import db
 from ma import ma
 from resources.course import Course
+from resources.course import CourseList
 
 load_dotenv('.env', verbose=True)
 
@@ -18,6 +19,7 @@ api = Api(app)
 db.init_app(app)
 
 api.add_resource(Course, '/course/<string:slug>')
+api.add_resource(CourseList, '/courses')
 
 jwt = JWTManager(app)
 migrate = Migrate(app, db)

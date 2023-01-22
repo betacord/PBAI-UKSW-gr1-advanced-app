@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from slugify import slugify
 
 from db import db
@@ -13,12 +15,16 @@ class CourseModel(db.Model):
     video_url = db.Column(db.String(150), unique=True, nullable=False)
 
     @classmethod
-    def find_by_slug(cls, slug: str) -> 'CourseModel':
+    def find_by_slug(cls, slug: str) -> CourseModel:
         return cls.query.filter_by(slug=slug).first()
 
     @classmethod
-    def find_by_name(cls, name: str) -> 'CourseModel':
+    def find_by_name(cls, name: str) -> CourseModel:
         return cls.query.filter_by(name=name).first()
+
+    @classmethod
+    def find_all(cls) -> list[CourseModel]:
+        return cls.query.all()
 
     def save(self) -> None:
         self.slug = slugify(self.name)
