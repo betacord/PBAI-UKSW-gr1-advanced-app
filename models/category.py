@@ -14,6 +14,7 @@ class CategoryModel(db.Model):
     slug = db.Column(db.String(100), unique=True, nullable=True)
 
     courses = db.relationship('CourseModel', backref='category', lazy='dynamic')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     @classmethod
     def find_all(cls) -> list[CategoryModel]:
