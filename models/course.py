@@ -14,6 +14,8 @@ class CourseModel(db.Model):
     slug = db.Column(db.String(150), unique=True, nullable=False)
     video_url = db.Column(db.String(150), unique=True, nullable=False)
 
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+
     @classmethod
     def find_by_slug(cls, slug: str) -> CourseModel:
         return cls.query.filter_by(slug=slug).first()

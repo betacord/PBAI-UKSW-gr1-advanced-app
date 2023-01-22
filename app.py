@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 
 from db import db
 from ma import ma
-from resources.course import Course
-from resources.course import CourseList
+from resources.course import Course, CourseList
+from resources.category import Category
 
 load_dotenv('.env', verbose=True)
 
@@ -20,9 +20,10 @@ db.init_app(app)
 
 api.add_resource(Course, '/course/<string:slug>')
 api.add_resource(CourseList, '/courses')
+api.add_resource(Category, '/category/<string:slug>')
 
 jwt = JWTManager(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, render_as_batch=True)
 
 if __name__ == '__main__':
     ma.init_app(app)
